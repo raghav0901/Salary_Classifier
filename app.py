@@ -2,15 +2,13 @@ import numpy as np
 import pandas as pd
 from flask import Flask, request, jsonify, render_template
 import pickle
-import logging
+
 
 app = Flask(__name__)
 model = pickle.load(open('model.pkl', 'rb'))
-logging.basicConfig(level=logging.INFO,file='module.log')
 
 @app.route('/')
 def home():
-    logging.warning("A Warning Logging Message")
     return render_template('index.html')
 
 @app.route('/predict',methods=['POST'])
