@@ -6,6 +6,7 @@ import logging
 
 app = Flask(__name__)
 model = pickle.load(open('model.pkl', 'rb'))
+logging.basicConfig(level=logging.INFO,file='module.log')
 
 @app.route('/')
 def home():
