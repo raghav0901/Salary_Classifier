@@ -14,10 +14,19 @@ cursor=connection.cursor()
 
 @app.route('/')
 def home():
-     
+    global connection
+    global cursor
     print(connection)
-    cursor.execute("CREATE TABLE IF NOT EXISTS TestyData( age int , fnlwgt int, education varchar(255), education_num int, occupation varchar(255), capital_gain int, capital_loss int, hours_per_week int, country varchar(255), race varchar(255), relationship varchar(255), sex varchar(255), workclass varchar(255),prediction varchar(255) )")
-    cursor.execute("show tables")
+
+    try:
+      cursor.execute("CREATE TABLE IF NOT EXISTS TestyData( age int , fnlwgt int, education varchar(255), education_num int, occupation varchar(255), capital_gain int, capital_loss int, hours_per_week int, country varchar(255), race varchar(255), relationship varchar(255), sex varchar(255), workclass varchar(255),prediction varchar(255) )")
+      cursor.execute("show tables")
+    except mysql.connector.Error as err:
+      connection=sql.connect(host='us-cdbr-east-04.cleardb.com',user='b77648943f2114',password='517f5ad6',database='heroku_4fa29ab7f3558b6',connect_timeout=6000)
+      cursor=connection.cursor()
+      cursor.execute("CREATE TABLE IF NOT EXISTS TestyData( age int , fnlwgt int, education varchar(255), education_num int, occupation varchar(255), capital_gain int, capital_loss int, hours_per_week int, country varchar(255), race varchar(255), relationship varchar(255), sex varchar(255), workclass varchar(255),prediction varchar(255) )")
+      cursor.execute("show tables")
+     
     for x in cursor:
         print(x)
 
@@ -26,8 +35,15 @@ def home():
 
 @app.route('/View')
 def View():
+    global connection
+    global cursor 
     print(connection)
-    cursor.execute("select * from TestyData")
+    try:
+      cursor.execute("select * from TestyData")
+    except mysql.connector.Error as err:
+      connection=sql.connect(host='us-cdbr-east-04.cleardb.com',user='b77648943f2114',password='517f5ad6',database='heroku_4fa29ab7f3558b6',connect_timeout=6000)
+      cursor=connection.cursor()
+      cursor.execute("select * from TestyData") 
     data=cursor.fetchall()
     for x in data:
         print(x)
@@ -35,7 +51,8 @@ def View():
 
 @app.route('/predict',methods=['POST'])
 def predict():
-
+    global connection
+    global cursor 
     
     '''
     For rendering results on HTML GUI
@@ -113,7 +130,12 @@ def predict():
     query="insert into TestyData (age,fnlwgt,education, education_num,occupation,capital_gain,capital_loss,hours_per_week,country,race,relationship,sex,workclass,prediction) values (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)"    
     values=(int(new_age),int(new_wgt),new_ed,int(new_educationnum),new_occup,int(newcg),int(newloss),int(newhrs),new_contry,newrace,newrelation,newsex,newworkclass,output)
     print(connection)
-    cursor.execute(query,values) 
+    try: 
+      cursor.execute(query,values) 
+    except mysql.connector.Error as err:
+      connection=sql.connect(host='us-cdbr-east-04.cleardb.com',user='b77648943f2114',password='517f5ad6',database='heroku_4fa29ab7f3558b6',connect_timeout=6000)
+      cursor=connection.cursor()
+      cursor.execute(query,values)
     return render_template('index.html', prediction_text='Employee Salary should be $ {}'.format(output))
 
 
