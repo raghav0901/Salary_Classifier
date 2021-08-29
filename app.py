@@ -7,7 +7,7 @@ import time
 app = Flask(__name__)
 
 model = pickle.load(open('model.pkl', 'rb'))
-connection=sql.connect(host='us-cdbr-east-04.cleardb.com',user='b77648943f2114',password='517f5ad6',database='heroku_4fa29ab7f3558b6',connect_timeout=6000 )
+connection=sql.connect(host='us-cdbr-east-04.cleardb.com',user='b77648943f2114',password='517f5ad6',database='heroku_4fa29ab7f3558b6',connect_timeout=60000 )
 cursor=connection.cursor()
 @app.route('/')
 def home():
