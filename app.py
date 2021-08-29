@@ -121,6 +121,7 @@ def predict():
     query="insert into TestyData (age,fnlwgt,education, education_num,occupation,capital_gain,capital_loss,hours_per_week,country,race,relationship,sex,workclass,prediction) values (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)"    
     values=(int(new_age),int(new_wgt),new_ed,int(new_educationnum),new_occup,int(newcg),int(newloss),int(newhrs),new_contry,newrace,newrelation,newsex,newworkclass,output)
     cursor.execute(query,values) 
+    time.sleep(5)
     cursor.close()
     connection.close()
     return render_template('index.html', prediction_text='Employee Salary should be $ {}'.format(output))
