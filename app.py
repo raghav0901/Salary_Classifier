@@ -12,7 +12,6 @@ print(connection)
 cursor=connection.cursor()
 @app.route('/')
 def home():
-    global cursor   
     cursor.execute('delete from TestyData')
     cursor.execute("CREATE TABLE IF NOT EXISTS TestyData( age int, fnlwgt int, education varchar(255), education_num int, occupation varchar(255), capital_gain int, capital_loss int, hours_per_week int, country varchar(255), race varchar(255), relationship varchar(255), sex varchar(255), workclass varchar(255),prediction varchar(255) )")
     cursor.execute("show tables")
@@ -24,7 +23,6 @@ def home():
 
 @app.route('/View')
 def View():
-    global cursor
     cursor.execute("select * from TestyData")
     data=cursor.fetchall()
     for x in data:
@@ -33,7 +31,6 @@ def View():
 
 @app.route('/predict',methods=['POST'])
 def predict():
-    global cursor
     
     '''
     For rendering results on HTML GUI
