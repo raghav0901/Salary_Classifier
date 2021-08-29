@@ -7,7 +7,7 @@ import time
 app = Flask(__name__)
 
 model = pickle.load(open('model.pkl', 'rb'))
-
+connection=sql.connect(host='us-cdbr-east-04.cleardb.com',user='b77648943f2114',password='517f5ad6',database='heroku_4fa29ab7f3558b6',connect_timeout=6000 )
 @app.route('/')
 def home():
     
@@ -116,14 +116,13 @@ def predict():
 
     
 
-    connection=sql.connect(host='us-cdbr-east-04.cleardb.com',user='b77648943f2114',password='517f5ad6',database='heroku_4fa29ab7f3558b6',connect_timeout=6000 )
+    
     cursor=connection.cursor()
     query="insert into TestyData (age,fnlwgt,education, education_num,occupation,capital_gain,capital_loss,hours_per_week,country,race,relationship,sex,workclass,prediction) values (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)"    
     values=(int(new_age),int(new_wgt),new_ed,int(new_educationnum),new_occup,int(newcg),int(newloss),int(newhrs),new_contry,newrace,newrelation,newsex,newworkclass,output)
     cursor.execute(query,values) 
     time.sleep(5)
     cursor.close()
-    connection.close()
     return render_template('index.html', prediction_text='Employee Salary should be $ {}'.format(output))
 
 
