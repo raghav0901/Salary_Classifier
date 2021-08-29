@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>ML API</title>
+  <style>
+      table,th,td{border: 1px solid black;}
+  </style>
+</head>
+<body>
+    <a href="/">Go Back</a>
+    <table>
+        <thead>
+            <tr>
+                <th>AGE</th>
+                <th>FNLWGT</th>
+                <th>EDUCATION</th>
+                <th>EDUCATION-NUM</th>
+                <th>OCCUPATION</th>
+                <th>CAPTIAL-GAIN</th>
+                <th>CAPTIAL-LOSS</th>
+                <th>HOURS-PER-WEEK</th>
+                <th>COUNTRY</th>
+                <th>RACE</th>
+                <th>RELATIONSHIP</th>
+                <th>SEX</th>
+                <th>WORKCLASS</th>
+                <th>PREDICTION</th>
+
+            </tr>
+        </thead>
+        <tbody>
+            {% for row in output_data %}
+            <tr>
+                <td>{{row[0]}}</td>
+                <td>{{row[1]}}</td>
+                <td>{{row[2]}}</td>
+                <td>{{row[3]}}</td>
+                <td>{{row[4]}}</td>
+                <td>{{row[5]}}</td>
+                <td>{{row[6]}}</td>
+                <td>{{row[7]}}</td>
+                <td>{{row[8]}}</td>
+                <td>{{row[9]}}</td>
+                <td>{{row[10]}}</td>
+                <td>{{row[11]}}</td>
+                <td>{{row[12]}}</td>
+                <td>{{row[13]}}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</body>
+</html>
