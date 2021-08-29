@@ -7,17 +7,19 @@ import time
 app = Flask(__name__)
 
 model = pickle.load(open('model.pkl', 'rb'))
-connection=sql.connect(host='us-cdbr-east-04.cleardb.com',user='b77648943f2114',password='517f5ad6',database='heroku_4fa29ab7f3558b6',connect_timeout=60000 )
-cursor=connection.cursor()
+
 @app.route('/')
 def home():
     
-   
+    connection=sql.connect(host='us-cdbr-east-04.cleardb.com',user='b77648943f2114',password='517f5ad6',database='heroku_4fa29ab7f3558b6',connect_timeout=6000 )
+    cursor=connection.cursor()
     cursor.execute("CREATE TABLE IF NOT EXISTS TestyData( age int, fnlwgt int, education varchar(255), education_num int, occupation varchar(255), capital_gain int, capital_loss int, hours_per_week int, country varchar(255), race varchar(255), relationship varchar(255), sex varchar(255), workclass varchar(255),prediction varchar(255) )")
     cursor.execute("show tables")
     time.sleep(4)
     for x in cursor:
         print(x)
+    cursor.close()
+    connection.close()
     return render_template('index.html')
 
 
@@ -25,12 +27,15 @@ def home():
 def View():
    
  
-    
+    connection=sql.connect(host='us-cdbr-east-04.cleardb.com',user='b77648943f2114',password='517f5ad6',database='heroku_4fa29ab7f3558b6',connect_timeout=6000 )
+    cursor=connection.cursor()
     cursor.execute("select * from TestyData")
     time.sleep(4)
     data=cursor.fetchall()
     for x in data:
         print(x)
+    cursor.close()
+    connection.close()    
     return render_template('template.html',output_data=data)
 
 @app.route('/predict',methods=['POST'])
@@ -111,11 +116,13 @@ def predict():
 
     
 
-   
+    connection=sql.connect(host='us-cdbr-east-04.cleardb.com',user='b77648943f2114',password='517f5ad6',database='heroku_4fa29ab7f3558b6',connect_timeout=6000 )
+    cursor=connection.cursor()
     query="insert into TestyData (age,fnlwgt,education, education_num,occupation,capital_gain,capital_loss,hours_per_week,country,race,relationship,sex,workclass,prediction) values (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)"    
     values=(int(new_age),int(new_wgt),new_ed,int(new_educationnum),new_occup,int(newcg),int(newloss),int(newhrs),new_contry,newrace,newrelation,newsex,newworkclass,output)
     cursor.execute(query,values) 
-    time.sleep(4)
+    cursor.close()
+    connection.close()
     return render_template('index.html', prediction_text='Employee Salary should be $ {}'.format(output))
 
 
