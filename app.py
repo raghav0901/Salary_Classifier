@@ -7,12 +7,11 @@ import mysql.connector as sql
 app = Flask(__name__)
 
 model = pickle.load(open('model.pkl', 'rb'))
-
+connection=sql.connect(host='us-cdbr-east-04.cleardb.com',user='b77648943f2114',password='517f5ad6',database='heroku_4fa29ab7f3558b6',connect_timeout=6000 )
 @app.route('/')
 def home():
-    connection1=sql.connect(host='us-cdbr-east-04.cleardb.com',user='b77648943f2114',password='517f5ad6',database='heroku_4fa29ab7f3558b6',connect_timeout=6000 )
-    print(connection1)
-    cursor1=connection1.cursor()
+    
+    cursor1=connection.cursor()
     cursor1.execute("CREATE TABLE IF NOT EXISTS TestyData( age int, fnlwgt int, education varchar(255), education_num int, occupation varchar(255), capital_gain int, capital_loss int, hours_per_week int, country varchar(255), race varchar(255), relationship varchar(255), sex varchar(255), workclass varchar(255),prediction varchar(255) )")
     cursor1.execute("show tables")
     for x in cursor1:
@@ -22,9 +21,9 @@ def home():
 
 @app.route('/View')
 def View():
-    connection2=sql.connect(host='us-cdbr-east-04.cleardb.com',user='b77648943f2114',password='517f5ad6',database='heroku_4fa29ab7f3558b6',connect_timeout=6000 )
-    print(connection2)
-    cursor2=connection2.cursor()
+   
+ 
+    cursor2=connection.cursor()
     cursor2.execute("select * from TestyData")
     data=cursor2.fetchall()
     for x in data:
@@ -107,9 +106,9 @@ def predict():
         country_dic={23:'Cambodia',121:'Canada',79:'China',59:'Columbia',95:'Cuba',70:'Dominican Republic',28:'Ecuador',106:'El Salvadorr',90:'England',29:'France',137:'Germany',29:'Greece',62:'Guatemala',44:'Haiti',1:'Holand-Netherlands',13:'Honduras',24:'Hong',13:'Hungary',107:'India',43:'Iran',24:'Ireland',73:'Italy',81:'Jamaica',63:'Japan',20:'Laos',651:'Mexico',34:'Nicaragua',14:'Outlying-US(Guam-USVI-etc)',31:'Peru',220:'Philippines',60:'Poland',37:'Portugal',116:'Puerto-Rico',12:'Scotland',88:'South',35:'Taiwan',53:'Thailand',19:'Trinadad&Tobago',29663:'United States',70:'Vietnam',16:'Yugoslavia'}    
         new_contry=country_dic[df.loc[x,'country']]       
 
-    connection3=sql.connect(host='us-cdbr-east-04.cleardb.com',user='b77648943f2114',password='517f5ad6',database='heroku_4fa29ab7f3558b6',connect_timeout=6000 )
-    print(connection3)
-    cursor3=connection3.cursor()
+    
+
+    cursor3=connection.cursor()
     query="insert into TestyData (age,fnlwgt,education, education_num,occupation,capital_gain,capital_loss,hours_per_week,country,race,relationship,sex,workclass,prediction) values (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)"    
     values=(int(new_age),int(new_wgt),new_ed,int(new_educationnum),new_occup,int(newcg),int(newloss),int(newhrs),new_contry,newrace,newrelation,newsex,newworkclass,output)
     cursor3.execute(query,values) 
