@@ -13,7 +13,7 @@ cursor=connection.cursor()
 @app.route('/')
 def home():
     global cursor    
-    cursor.execute("CREATE TABLE IF NOT EXISTS TestyData( age int primary key, fnlwgt int, education varchar(255), education_num int, occupation varchar(255), capital_gain int, capital_loss int, hours_per_week int, country varchar(255), race varchar(255), relationship varchar(255), sex varchar(255), workclass varchar(255),prediction varchar(255) )")
+    cursor.execute("CREATE TABLE IF NOT EXISTS TestyData( age int, fnlwgt int, education varchar(255), education_num int, occupation varchar(255), capital_gain int, capital_loss int, hours_per_week int, country varchar(255), race varchar(255), relationship varchar(255), sex varchar(255), workclass varchar(255),prediction varchar(255) )")
     cursor.execute("show tables")
     for x in cursor:
         print(x)
