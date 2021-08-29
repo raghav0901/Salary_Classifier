@@ -7,26 +7,31 @@ import mysql.connector as sql
 app = Flask(__name__)
 
 model = pickle.load(open('model.pkl', 'rb'))
-connection=sql.connect(host='us-cdbr-east-04.cleardb.com',user='b77648943f2114',password='517f5ad6',database='heroku_4fa29ab7f3558b6',connect_timeout=6000,wait_timeout=28800 ,interactive_timeout=28800 )
-print(connection)
-cursor=connection.cursor()
+
 @app.route('/')
 def home():
+    connection=sql.connect(host='us-cdbr-east-04.cleardb.com',user='b77648943f2114',password='517f5ad6',database='heroku_4fa29ab7f3558b6',connect_timeout=6000 )
+    print(connection)
+    cursor=connection.cursor()
     cursor.execute('delete from TestyData')
     cursor.execute("CREATE TABLE IF NOT EXISTS TestyData( age int, fnlwgt int, education varchar(255), education_num int, occupation varchar(255), capital_gain int, capital_loss int, hours_per_week int, country varchar(255), race varchar(255), relationship varchar(255), sex varchar(255), workclass varchar(255),prediction varchar(255) )")
     cursor.execute("show tables")
     for x in cursor:
         print(x)
-
+    connection.close()
     return render_template('index.html')
 
 
 @app.route('/View')
 def View():
+    connection=sql.connect(host='us-cdbr-east-04.cleardb.com',user='b77648943f2114',password='517f5ad6',database='heroku_4fa29ab7f3558b6',connect_timeout=6000 )
+    print(connection)
+    cursor=connection.cursor()
     cursor.execute("select * from TestyData")
     data=cursor.fetchall()
     for x in data:
         print(x)
+    connection.close()
     return render_template('template.html',output_data=data)
 
 @app.route('/predict',methods=['POST'])
@@ -35,6 +40,9 @@ def predict():
     '''
     For rendering results on HTML GUI
     '''
+    connection=sql.connect(host='us-cdbr-east-04.cleardb.com',user='b77648943f2114',password='517f5ad6',database='heroku_4fa29ab7f3558b6',connect_timeout=6000 )
+    print(connection)
+    cursor=connection.cursor()
     cols=['age', 'fnlwgt', 'education', 'education-num', 'occupation', 'capital-gain', 'capital-loss', 'hours-per-week', 'country', 'race_Amer-Indian-Eskimo', 'race_Asian-Pac-Islander', 'race_Black', 'race_Other', 'race_White', 'relationship_Husband', 'relationship_Not-in-family', 'relationship_Other-relative', 'relationship_Own-child', 'relationship_Unmarried', 'relationship_Wife', 'sex_Female', 'sex_Male', 'workclass_Federal-gov', 'workclass_Local-gov', 'workclass_Never-worked', 'workclass_Private', 'workclass_Self-emp-inc', 'workclass_Self-emp-not-inc', 'workclass_State-gov', 'workclass_Without-pay']
     int_features = [int(x) for x in request.form.values()]
     final_features = np.array(int_features).reshape(1,30)
@@ -108,6 +116,7 @@ def predict():
     query="insert into TestyData (age,fnlwgt,education, education_num,occupation,capital_gain,capital_loss,hours_per_week,country,race,relationship,sex,workclass,prediction) values (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)"    
     values=(int(new_age),int(new_wgt),new_ed,int(new_educationnum),new_occup,int(newcg),int(newloss),int(newhrs),new_contry,newrace,newrelation,newsex,newworkclass,output)
     cursor.execute(query,values) 
+    connection.close()
     return render_template('index.html', prediction_text='Employee Salary should be $ {}'.format(output))
 
 
