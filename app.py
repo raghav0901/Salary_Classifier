@@ -26,8 +26,9 @@ def home():
 
 @app.route('/View')
 def View():
-    connection.close()
     cursor.close()
+    connection.close()
+    
  
     connection1=sql.connect(host='us-cdbr-east-04.cleardb.com',user='b77648943f2114',password='517f5ad6',database='heroku_4fa29ab7f3558b6',connect_timeout=6000 )
     cursor1=connection1.cursor()
