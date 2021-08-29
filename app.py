@@ -26,11 +26,12 @@ def home():
       cursor=connection.cursor()
       cursor.execute("CREATE TABLE IF NOT EXISTS TestyData( age int , fnlwgt int, education varchar(255), education_num int, occupation varchar(255), capital_gain int, capital_loss int, hours_per_week int, country varchar(255), race varchar(255), relationship varchar(255), sex varchar(255), workclass varchar(255),prediction varchar(255) )")
       cursor.execute("show tables")
-     
-    for x in cursor:
-        print(x)
+    
+    finally:
+      for x in cursor:
+          print(x)
 
-    return render_template('index.html')
+      return render_template('index.html')
 
 
 @app.route('/View')
@@ -44,10 +45,12 @@ def View():
       connection=sql.connect(host='us-cdbr-east-04.cleardb.com',user='b77648943f2114',password='517f5ad6',database='heroku_4fa29ab7f3558b6',connect_timeout=6000)
       cursor=connection.cursor()
       cursor.execute("select * from TestyData") 
-    data=cursor.fetchall()
-    for x in data:
-        print(x)
-    return render_template('template.html',output_data=data)
+    
+    finally:
+      data=cursor.fetchall()
+      for x in data:
+         print(x)
+      return render_template('template.html',output_data=data)
 
 @app.route('/predict',methods=['POST'])
 def predict():
@@ -136,7 +139,8 @@ def predict():
       connection=sql.connect(host='us-cdbr-east-04.cleardb.com',user='b77648943f2114',password='517f5ad6',database='heroku_4fa29ab7f3558b6',connect_timeout=6000)
       cursor=connection.cursor()
       cursor.execute(query,values)
-    return render_template('index.html', prediction_text='Employee Salary should be $ {}'.format(output))
+    finally:
+      return render_template('index.html', prediction_text='Employee Salary should be $ {}'.format(output))
 
 
 if __name__ == "__main__":
