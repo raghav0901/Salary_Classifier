@@ -11,7 +11,8 @@ connection=sql.connect(host='us-cdbr-east-04.cleardb.com',user='b77648943f2114',
 print(connection)
 
 cursor=connection.cursor()
-
+cursor.execute("drop table if exists TestyData")
+connection.commit()
 
 @app.route('/')
 def home():
@@ -21,14 +22,12 @@ def home():
 
     try:
       cursor.execute("CREATE TABLE IF NOT EXISTS TestyData( age int , fnlwgt int, education varchar(255), education_num int, occupation varchar(255), capital_gain int, capital_loss int, hours_per_week int, country varchar(255), race varchar(255), relationship varchar(255), sex varchar(255), workclass varchar(255),prediction varchar(255) )")
-      cursor.execute("drop from TestyData")
       connection.commit()
       
     except sql.Error as err:
       connection=sql.connect(host='us-cdbr-east-04.cleardb.com',user='b77648943f2114',password='517f5ad6',database='heroku_4fa29ab7f3558b6',connect_timeout=6000)
       cursor=connection.cursor()    
       cursor.execute("CREATE TABLE IF NOT EXISTS TestyData( age int , fnlwgt int, education varchar(255), education_num int, occupation varchar(255), capital_gain int, capital_loss int, hours_per_week int, country varchar(255), race varchar(255), relationship varchar(255), sex varchar(255), workclass varchar(255),prediction varchar(255) )")
-      cursor.execute("drop from TestyData")
       connection.commit()
       
     
