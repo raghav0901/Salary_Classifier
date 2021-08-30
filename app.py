@@ -11,7 +11,7 @@ connection=sql.connect(host='us-cdbr-east-04.cleardb.com',user='b77648943f2114',
 print(connection)
 
 cursor=connection.cursor()
-cursor.execute("drop table TestyData")
+
 
 @app.route('/')
 def home():
