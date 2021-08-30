@@ -11,6 +11,7 @@ connection=sql.connect(host='us-cdbr-east-04.cleardb.com',user='b77648943f2114',
 print(connection)
 
 cursor=connection.cursor()
+cursor.execute("delete from TestyData")
 
 @app.route('/')
 def home():
