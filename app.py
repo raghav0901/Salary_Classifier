@@ -5,14 +5,14 @@ import pickle
 import logging
 import mysql.connector as sql
 
+
+
+app = Flask(__name__)
+
 if __name__ != '__main__':
     gunicorn_logger = logging.getLogger('gunicorn.error')
     app.logger.handlers = gunicorn_logger.handlers
     app.logger.setLevel(gunicorn_logger.level)
-
-app = Flask(__name__)
-
-
 
 model = pickle.load(open('model.pkl', 'rb'))
 connection=sql.connect(host='us-cdbr-east-04.cleardb.com',user='b77648943f2114',password='517f5ad6',database='heroku_4fa29ab7f3558b6',connect_timeout=6000)
