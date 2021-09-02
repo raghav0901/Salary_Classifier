@@ -15,8 +15,8 @@ if __name__ != '__main__':
     app.logger.setLevel(gunicorn_logger.level)
 
 model = pickle.load(open('model.pkl', 'rb'))
+app.logger.info('Establishing a connection to the database')
 connection=sql.connect(host='us-cdbr-east-04.cleardb.com',user='b77648943f2114',password='517f5ad6',database='heroku_4fa29ab7f3558b6',connect_timeout=6000)
-print(connection)
 
 cursor=connection.cursor()
 cursor.execute("drop table if exists TestyData")
@@ -31,13 +31,14 @@ def home():
     app.logger.critical('d')
     global connection
     global cursor
-    print(connection)
+    app.logger.info('Creating a Table if it already does not exist')
 
     try:
       cursor.execute("CREATE TABLE IF NOT EXISTS TestyData( age int , fnlwgt int, education varchar(255), education_num int, occupation varchar(255), capital_gain int, capital_loss int, hours_per_week int, country varchar(255), race varchar(255), relationship varchar(255), sex varchar(255), workclass varchar(255),prediction varchar(255) )")
       connection.commit()
       
     except sql.Error as err:
+      app.logger.error('Connection to the databse was lost therefore trying to connect to the database again')  
       connection=sql.connect(host='us-cdbr-east-04.cleardb.com',user='b77648943f2114',password='517f5ad6',database='heroku_4fa29ab7f3558b6',connect_timeout=6000)
       cursor=connection.cursor()    
       cursor.execute("CREATE TABLE IF NOT EXISTS TestyData( age int , fnlwgt int, education varchar(255), education_num int, occupation varchar(255), capital_gain int, capital_loss int, hours_per_week int, country varchar(255), race varchar(255), relationship varchar(255), sex varchar(255), workclass varchar(255),prediction varchar(255) )")
@@ -45,7 +46,7 @@ def home():
       
     
     finally:
-
+      app.logger.debug('Returning the HTML form')
       return render_template('index.html')
 
 
@@ -53,15 +54,17 @@ def home():
 def View():
     global connection
     global cursor 
-    print(connection)
+    app.logger.info('Fetching The previous predictions')
     try:
       cursor.execute("select * from TestyData")
     except sql.Error as err:
+      app.logger.error('Connection to the databse was lost therefore trying to connect to the database again')     
       connection=sql.connect(host='us-cdbr-east-04.cleardb.com',user='b77648943f2114',password='517f5ad6',database='heroku_4fa29ab7f3558b6',connect_timeout=6000)
       cursor=connection.cursor()
       cursor.execute("select * from TestyData") 
     
     finally:
+      app.logger.debug('Displaying The previous predictions')  
       data=cursor.fetchall()
       for x in data:
          print(x)
@@ -81,6 +84,8 @@ def predict():
 
     df=pd.DataFrame(data=final_features,columns=cols)
     
+    app.logger.info('Preparing a dataframe for predictions')
+    
     df = df.reindex(columns=['age', 'fnlwgt', 'education', 'education-num', 'occupation',
        'capital-gain', 'capital-loss', 'hours-per-week', 'country',
        'sex_Female', 'sex_Male', 'race_Amer-Indian-Eskimo',
@@ -92,11 +97,13 @@ def predict():
        'workclass_Self-emp-inc', 'workclass_Self-emp-not-inc',
        'workclass_State-gov', 'workclass_Without-pay'])
 
-   
+    app.logger.info('Making a prediction')
     prediction = model.predict(df)
   
 
     output = prediction[0]
+    
+    app.logger.info('Decoding the form values for record insertion into the database:')
     for x in df.index:
         educationdic={0:'10th',1:'11th',2:'12th',3:'1st-4th',4:'5th-6th',5:'7th-8th',6:'9th',7:'Assoc-acdm',8:'Assoc-voc',9:'Bachelors',10:'Doctorate',11:'HS-grad',12:'Masters',13:'Preschool',14:'Prof-school',15:'Some-college'}
         new_ed=educationdic[df.loc[x,'education']]
@@ -146,17 +153,19 @@ def predict():
 
   
     query="insert into TestyData (age,fnlwgt,education, education_num,occupation,capital_gain,capital_loss,hours_per_week,country,race,relationship,sex,workclass,prediction) values (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)"    
-    values=(int(new_age),int(new_wgt),new_ed,int(new_educationnum),new_occup,int(newcg),int(newloss),int(newhrs),new_contry,newrace,newrelation,newsex,newworkclass,output)
-    print(connection)
+    values=(int(new_age),int(new_wgt),new_ed,int(new_educationnum),new_occup,int(newcg),int(newloss),int(newhrs),new_contry,newrace,newrelation,newsex,newworkclass,output) 
     try: 
+      app.logger.info('Trying to insert the predictions into the databse')  
       cursor.execute(query,values)
       connection.commit()
     except sql.Error as err:
+      app.logger.error('Connection to the databse was lost therefore trying to connect to the database again')   
       connection=sql.connect(host='us-cdbr-east-04.cleardb.com',user='b77648943f2114',password='517f5ad6',database='heroku_4fa29ab7f3558b6',connect_timeout=6000)
       cursor=connection.cursor()
       cursor.execute(query,values)
       connection.commit()
     finally:
+      app.logger.debug('Displaying The last prediction along with the FORM')  
       return render_template('index.html', prediction_text='Employee Salary should be $ {}'.format(output))
 
 
