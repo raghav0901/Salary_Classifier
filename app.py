@@ -27,11 +27,11 @@ connection.commit()
 
 @app.route('/')
 def home():
-    LOGGER.debug('this is a DEBUG message')
-    LOGGER.info('this is an INFO message')
-    LOGGER.warning('this is a WARNING message')
-    LOGGER.error('this is an ERROR message')
-    LOGGER.critical('this is a CRITICAL message')
+    LOGGER.debug('BLH')
+    LOGGER.info('BLAH')
+    LOGGER.warning('BLLe')
+    LOGGER.error('te')
+    LOGGER.critical('d')
     global connection
     global cursor
     print(connection)
