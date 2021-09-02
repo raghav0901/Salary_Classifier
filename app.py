@@ -2,7 +2,16 @@ import numpy as np
 import pandas as pd
 from flask import Flask, request, jsonify, render_template
 import pickle
+import logging
 import mysql.connector as sql
+logging.basicConfig()
+LOGGER = logging.getLogger(__name__)
+LOGGER.setLevel(logging.DEBUG)
+fh = logging.FileHandler('SPOT.log')
+fh.setLevel(level=logging.DEBUG)
+f_format = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
+fh.setFormatter(f_format)
+LOGGER.addHandler(fh)
 
 app = Flask(__name__)
 
