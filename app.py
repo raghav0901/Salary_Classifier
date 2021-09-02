@@ -4,14 +4,11 @@ from flask import Flask, request, jsonify, render_template
 import pickle
 import logging
 import mysql.connector as sql
-logging.basicConfig()
-LOGGER = logging.getLogger(__name__)
-LOGGER.setLevel(logging.DEBUG)
-fh = logging.FileHandler('SPOT.log')
-fh.setLevel(level=logging.DEBUG)
-f_format = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
-fh.setFormatter(f_format)
-LOGGER.addHandler(fh)
+
+if __name__ != '__main__':
+    gunicorn_logger = logging.getLogger('gunicorn.error')
+    app.logger.handlers = gunicorn_logger.handlers
+    app.logger.setLevel(gunicorn_logger.level)
 
 app = Flask(__name__)
 
@@ -27,11 +24,11 @@ connection.commit()
 
 @app.route('/')
 def home():
-    LOGGER.debug('BLH')
-    LOGGER.info('BLAH')
-    LOGGER.warning('BLLe')
-    LOGGER.error('te')
-    LOGGER.critical('d')
+    app.logger.debug('BLH')
+    app.logger.info('BLAH')
+    app.logger.warning('BLLe')
+    app.logger.error('te')
+    app.logger.critical('d')
     global connection
     global cursor
     print(connection)
