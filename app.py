@@ -4,6 +4,7 @@ from flask import Flask, request, jsonify, render_template
 import pickle
 import logging
 import mysql.connector as sql
+import time
 
 
 
@@ -72,6 +73,7 @@ def View():
 
 @app.route('/predict',methods=['POST'])
 def predict():
+    
     global connection
     global cursor 
     
@@ -100,9 +102,10 @@ def predict():
     app.logger.info('Making a prediction')
     prediction = model.predict(df)
   
-
+    t1=time.time()
     output = prediction[0]
-    
+    t2=time.time()
+    t3=t2-t1
     app.logger.info('Decoding the form values for record insertion into the database:')
     for x in df.index:
         educationdic={0:'10th',1:'11th',2:'12th',3:'1st-4th',4:'5th-6th',5:'7th-8th',6:'9th',7:'Assoc-acdm',8:'Assoc-voc',9:'Bachelors',10:'Doctorate',11:'HS-grad',12:'Masters',13:'Preschool',14:'Prof-school',15:'Some-college'}
@@ -153,7 +156,7 @@ def predict():
 
   
     query="insert into TestyData (age,fnlwgt,education, education_num,occupation,capital_gain,capital_loss,hours_per_week,country,race,relationship,sex,workclass,prediction,timing) values (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)"    
-    values=(int(new_age),int(new_wgt),new_ed,int(new_educationnum),new_occup,int(newcg),int(newloss),int(newhrs),new_contry,newrace,newrelation,newsex,newworkclass,output,0.91) 
+    values=(int(new_age),int(new_wgt),new_ed,int(new_educationnum),new_occup,int(newcg),int(newloss),int(newhrs),new_contry,newrace,newrelation,newsex,newworkclass,output,t3) 
     try: 
       app.logger.info('Trying to insert the predictions into the databse')  
       cursor.execute(query,values)
