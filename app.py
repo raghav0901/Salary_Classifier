@@ -4,14 +4,18 @@ from flask import Flask, request, jsonify, render_template
 import pickle
 import logging
 import mysql.connector as sql
-
+logging.basicConfig()
+LOGGER = logging.getLogger(__name__)
+LOGGER.setLevel(logging.DEBUG)
+fh = logging.FileHandler('SPOT.log')
+fh.setLevel(level=logging.DEBUG)
+f_format = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
+fh.setFormatter(f_format)
+LOGGER.addHandler(fh)
 
 app = Flask(__name__)
 
-if __name__ != '__main__':
-    gunicorn_logger = logging.getLogger('gunicorn.error')
-    app.logger.handlers = gunicorn_logger.handlers
-    app.logger.setLevel(gunicorn_logger.level)
+
 
 model = pickle.load(open('model.pkl', 'rb'))
 connection=sql.connect(host='us-cdbr-east-04.cleardb.com',user='b77648943f2114',password='517f5ad6',database='heroku_4fa29ab7f3558b6',connect_timeout=6000)
@@ -23,11 +27,11 @@ connection.commit()
 
 @app.route('/')
 def home():
-    app.logger.debug('this is a DEBUG message')
-    app.logger.info('this is an INFO message')
-    app.logger.warning('this is a WARNING message')
-    app.logger.error('this is an ERROR message')
-    app.logger.critical('this is a CRITICAL message')
+    LOGGER.debug('this is a DEBUG message')
+    LOGGER.info('this is an INFO message')
+    LOGGER.warning('this is a WARNING message')
+    LOGGER.error('this is an ERROR message')
+    LOGGER.critical('this is a CRITICAL message')
     global connection
     global cursor
     print(connection)
