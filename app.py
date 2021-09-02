@@ -4,14 +4,7 @@ from flask import Flask, request, jsonify, render_template
 import pickle
 import logging
 import mysql.connector as sql
-logging.basicConfig()
-LOGGER = logging.getLogger(__name__)
-LOGGER.setLevel(logging.DEBUG)
-fh = logging.FileHandler('SPOT.log')
-fh.setLevel(level=logging.DEBUG)
-f_format = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
-fh.setFormatter(f_format)
-LOGGER.addHandler(fh)
+logging.basicConfig(filename='record.log', level=logging.DEBUG, format=f'%(asctime)s %(levelname)s %(name)s %(threadName)s : %(message)s')
 
 app = Flask(__name__)
 
@@ -25,6 +18,7 @@ connection.commit()
 
 @app.route('/')
 def home():
+    app.logger.info('Info level log')
     global connection
     global cursor
     print(connection)
