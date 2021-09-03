@@ -25,11 +25,6 @@ connection.commit()
 
 @app.route('/')
 def home():
-    app.logger.debug('BLH')
-    app.logger.info('BLAH')
-    app.logger.warning('BLLe')
-    app.logger.error('te')
-    app.logger.critical('d')
     global connection
     global cursor
     app.logger.info('Creating a Table if it already does not exist')
