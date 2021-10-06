@@ -1,1 +1,1 @@
-# Salary_Predictions
+# Salary_Classifier
