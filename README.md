@@ -7,7 +7,7 @@ The ML salary classifier is a machine learning-based object classifier model whi
 The solution proposed here is an XGBOOST model which can classify the salary by using the feature set described above. The model has also been hyper-parameter tuned using RandomCVSearch to provide the best results.
 
 ## Data Requirements
-The data only needs to enter the data in the form of number for some fields and select options from drop down menu for the rest of the fields. The request form will then record the responses of the user and convert it to a NumPy array for the model to work on it.
+The user only needs to enter the data in the form of number for some fields and select options from drop down menu for the rest of the fields. The request form will then record the responses of the user and convert it to a NumPy array for the model to work on it.
 
 ## Tools Used
 Python programming language and frameworks such as NumPy, Pandas, Scikit-learn, XGBOOST and Flask were used to build the whole model. For deployment purposes , Heroku was used.
