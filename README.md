@@ -34,7 +34,23 @@ The performance of the ML salary classifier is solely dependent upon the trainin
 ## Potential Industry Of Use:
 Such a model would be highly beneficial for use in finance industry.
 
+## Column Descriptions
 
+Age -- Age of the person <br>
+Workclass -- Class of work <br>
+Fnlwgt -- Final weight of how much of the population it represents <br>
+Education -- Education level <br>
+Education_num -- Numeric education level <br>
+Marital_status -- Marital status  of the person <br>
+Occupation -- Occupation  of the person <br>
+Relationship -- Type of relationship <br>
+Race -- Race of the person <br>
+Sex -- Sex of the person <br>
+Capital_gain -- Capital gains obtained <br>
+Capital_loss -- Capital loss <br>
+Hours_per_week -- Average number of hour working per week<br>
+Native_country -- Country of origin<br>
+Salary -- Income level<br>
 
 
 
