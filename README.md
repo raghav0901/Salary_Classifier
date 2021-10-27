@@ -31,6 +31,8 @@ For identifying the different classes of the salary , we will use a machine lear
 ## Performance
 The performance of the ML salary classifier is solely dependent upon the training dataset it uses to generate the XGBOOST model. This statement is supported by the fact that the model uses only a select few features from the total feature set as a consequence of feature selection, and the particular features which are selected totally depends upon the training dataset. Also, the hyperparameter tuning performed to select the specific XGBOOST parameters depends upon the composition of dataset as well.
 
+## Potential Industry Of Use:
+Such a model would be highly beneficial for use in finance industry.
 
 
 
