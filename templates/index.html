@@ -8,20 +8,22 @@
 <link href='https://fonts.googleapis.com/css?family=Arimo' rel='stylesheet' type='text/css'>
 <link href='https://fonts.googleapis.com/css?family=Hind:300' rel='stylesheet' type='text/css'>
 <link href='https://fonts.googleapis.com/css?family=Open+Sans+Condensed:300' rel='stylesheet' type='text/css'>
-<link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='styles/style.css') }}">
+<!-- <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='styles/style.css') }}"> -->
+<link rel="stylesheet" href="style.css">
   
 </head>
 
 <body>
  <div class="login">
-	<h1>Salary Classifier</h1>
+<h1>Salary Classifier</h1>
 
      <!-- Main Input For Receiving Query to our ML -->
     <form action="/predict" method="post">
-    	<input type="number" name="age" placeholder="Age (17-90)" required="required" />
-      <br>
-      <input type="number" name="fnlwgt" placeholder="Fnlwgt (12285-1484705)" required="required" />
-    
+    <div class="bioInfo">
+    <input type="number" name="age" placeholder="Age (17-90)" required="required" />
+    <input type="number" name="fnlwgt" placeholder="Fnlwgt (12285-1484705)" required="required" />
+    </div>
+    <div class="educationInfo">
     <label for="education">Education</label>
     <select id="education" name="education">
       <option value="0">10th</option>
@@ -41,9 +43,9 @@
       <option value="14">Prof-school</option>
       <option value="15">Some-college</option>
     </select>
-    <br>
     <input type="number" name="education-num" placeholder="Education-Num (1-16)" required="required" />
-    <br>
+    </div>
+    <div class="occupationInfo">
     <label for="occup">Occupation</label>
     <select id="occup" name="occup">
       <option value="4069">Adm-clerical</option>
@@ -61,11 +63,11 @@
       <option value="963">Tech-support</option>
       <option value="1666">Transport-moving</option>
     </select>
-    <br>
-		<input type="number" name="capital-gain" placeholder="Capital-Gain (0-99999)" required="required" />
+<input type="number" name="capital-gain" placeholder="Capital-Gain (0-99999)" required="required" />
     <input type="number" name="capital-loss" placeholder="Capital-Loss (0-4356)" required="required" />
     <input type="number" name="hours-per-week" placeholder="Hours-Per-Week (1-99)" required="required" />
-    <br>
+  </div>
+  <div class="nCountryInfo">
     <label for="native-country">Native Country</label>
     <select id="native-country" name="native-country">
       <option value="23">Cambodia</option>
@@ -110,179 +112,129 @@
       <option value="70">Vietnam</option>
       <option value="16">Yugoslavia</option>
     </select>
-    <br>
+  </div>
+  <div class="raceInfo">
     <h6>Race (please select one)</h6>
     <label for="race_Amer-Indian-Eskimo">Amer-Indian-Eskimo</label>
     <select id="race_Amer-Indian-Eskimo" name="race_Amer-Indian-Eskimo">
       <option value="0">No</option>
       <option value="1">Yes</option>
     </select>
-    <br>
-
-    <br>
     <label for="race_Asian-Pac-Islander">Asian-Pac-Islander</label>
     <select id="race_Asian-Pac-Islander" name="race_Asian-Pac-Islander">
       <option value="0">No</option>
       <option value="1">Yes</option>
     </select>
-    <br>
-    <br>
     <label for="race_Black">Black</label>
     <select id="race_Black" name="race_Black">
       <option value="0">No</option>
       <option value="1">Yes</option>
     </select>
-    <br>
-    <br>
     <label for="race_Other">Other</label>
     <select id="race_Other" name="race_Other">
       <option value="0">No</option>
       <option value="1">Yes</option>
     </select>
-    <br>
-    <br>
     <label for="race_white">White</label>
     <select id="race_white" name="race_white">
       <option value="0">No</option>
       <option value="1">Yes</option>
     </select>
-    <br>
+  </div>
+  <div class="relationshipInfo">
     <h6>Relationship (please select one)</h6>
-    <br>
     <label for="relationship_Husband">Husband</label>
     <select id="relationship_Husband" name="relationship_Husband">
       <option value="0">No</option>
       <option value="1">Yes</option>
     </select>
-    <br>
-
-    <br>
     <label for="relationship_Not-in-family">Not-In-Family</label>
     <select id="relationship_Not-in-family" name="relationship_Not-in-family">
       <option value="0">No</option>
       <option value="1">Yes</option>
     </select>
-    <br>
-    <br>
     <label for="relationship_Other-relative">Other-relative</label>
     <select id="relationship_Other-relative" name="relationship_Other-relative">
       <option value="0">No</option>
       <option value="1">Yes</option>
     </select>
-    <br>
-
-    <br>
     <label for="relationship_Own-child">Own-child</label>
     <select id="relationship_Own-child" name="relationship_Own-child">
       <option value="0">No</option>
       <option value="1">Yes</option>
     </select>
-    <br>
-    
-    <br>
     <label for="relationship_Unmarried">Unmarried</label>
     <select id="relationship_Unmarried" name="relationship_Unmarried">
       <option value="0">No</option>
       <option value="1">Yes</option>
     </select>
-    <br>
-
-    <br>
     <label for="relationship_Wife">Wife</label>
     <select id="relationship_Wife" name="relationship_Wife">
       <option value="0">No</option>
       <option value="1">Yes</option>
     </select>
-    <br>
+  </div>
+  <div class="sexInfo">
     <h6>Sex (please select one)</h6>
-    <br>
     <label for="sex_Female">Female</label>
     <select id="sex_Female" name="sex_Female">
       <option value="0">No</option>
       <option value="1">Yes</option>
     </select>
-    <br>
-
-    <br>
     <label for="sex_Male">Male</label>
     <select id="sex_Male" name="sex_Male">
       <option value="0">No</option>
       <option value="1">Yes</option>
     </select>
-    <br>
+  </div>
+  <div class="workclassInfo">
     <h6>Workclass (please select one)</h6>
-    <br>
     <label for="workclass_Federal-gov">Federal-gov</label>
     <select id="workclass_Federal-gov" name="workclass_Federal-gov">
       <option value="0">No</option>
       <option value="1">Yes</option>
     </select>
-    <br>
-    
-    <br>
     <label for="workclass_Local-gov">Local-gov</label>
     <select id="workclass_Local-gov" name="workclass_Local-gov">
       <option value="0">No</option>
       <option value="1">Yes</option>
     </select>
-    <br>
-
-    <br>
     <label for="workclass_Never-worked">Never-worked</label>
     <select id="workclass_Never-worked" name="workclass_Never-worked">
       <option value="0">No</option>
       <option value="1">Yes</option>
     </select>
-    <br>
-
-    <br>
     <label for="workclass_Private">Private</label>
     <select id="workclass_Private" name="workclass_Private">
       <option value="0">No</option>
       <option value="1">Yes</option>
     </select>
-    <br>
-
-    <br>
     <label for="workclass_Self-emp-inc">Self-emp-inc</label>
     <select id="workclass_Self-emp-inc" name="workclass_Self-emp-inc">
       <option value="0">No</option>
       <option value="1">Yes</option>
     </select>
-    <br>
-
-    <br>
     <label for="workclass_Self-emp-not-inc">Self-emp-not-inc</label>
     <select id="workclass_Self-emp-not-inc" name="workclass_Self-emp-not-inc">
       <option value="0">No</option>
       <option value="1">Yes</option>
     </select>
-    <br>
-
-    <br>
     <label for="workclass_State-gov">State-gov</label>
     <select id="workclass_State-gov" name="workclass_State-gov">
       <option value="0">No</option>
       <option value="1">Yes</option>
     </select>
-    <br>
-
-    <br>
     <label for="workclass_Without-pay">Without-pay</label>
     <select id="workclass_Without-pay" name="workclass_Without-pay">
       <option value="0">No</option>
       <option value="1">Yes</option>
     </select>
-    <br>
-
-    <button type="submit" class="btn btn-primary btn-block btn-large">Predict</button>
+  </div>
+    <button type="submit" class="btn">Predict</button>
     
-   <br>
     </form>
-    <a href="/View"><button class="btn btn-primary btn-block btn-large">View My Predictions</button></a>
-   <br>
-   {{ prediction_text }}
-
+    <a href="/View"><button class="btn">View My Predictions</button></a>
+   <h3>{{ prediction_text }}</h3>
  </div>
 
 
