@@ -1,5 +1,8 @@
 # Salary Classifier
 
+## Link to the API:
+https://ml-salary-classifier.herokuapp.com
+
 ## Product Perspective
 The ML salary classifier is a machine learning-based object classifier model which will help us to predict the classification of the salary of the subject based on the values of different parameters.
 
