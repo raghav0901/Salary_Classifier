@@ -1,6 +1,6 @@
 # Salary Classifier
 
-## Link to the API:
+## Link to the deployed API:
 https://ml-salary-classifier.herokuapp.com
 
 ## Product Perspective
