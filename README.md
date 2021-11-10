@@ -39,7 +39,7 @@ Such a model would be highly beneficial for use in finance industry.
 
 ## Column Descriptions
 
-Age -> Age of the person <br> <br>
+Age -> Age of the person <br><br>
 Workclass -> Class of work <br>
 Fnlwgt -> Final weight of how much of the population it represents <br>
 Education -> Education level <br>
