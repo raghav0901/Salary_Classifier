@@ -53,7 +53,7 @@ Capital_gain -> Capital gains obtained <br>
 Capital_loss -> Capital loss <br>
 Hours_per_week -> Average number of hour working per week<br>
 Native_country -> Country of origin<br>
-Salary -> Income level<br>
+Salary -> Income level (To be predicted)<br>
 
 
 
