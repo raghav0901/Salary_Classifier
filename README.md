@@ -14,6 +14,20 @@ The solution proposed here is an XGBOOST model which can classify the salary by 
 ## Data Requirements
 The user only needs to enter the data in the form of number for some fields and select options from drop down menu for the rest of the fields. The request form will then record the responses of the user and convert it to a NumPy array for the model to work on it.
 
+## Different Techniques used to make the dataset more usable:<br>
+#### Feature Selection :<br>
+Chi-sqaure selection <br>
+One way ANOVA <br><br>
+
+#### Feature Engineering: <br>
+One-Hot encoding  <br>
+Label encoding <br>
+Frequency encoding <br><br>
+
+#### Missing Values: <br>
+Random Forest Classifier<br>
+
+
 ## Tools Used
 Python programming language and frameworks such as NumPy, Pandas, Scikit-learn, XGBOOST and Flask were used to build the whole model. For deployment purposes , Heroku was used.
 
