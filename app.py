@@ -94,9 +94,10 @@ def predict():
        'workclass_Self-emp-not-inc', 'workclass_State-gov',
        'workclass_Without-pay'])
     
-    df.drop('fnlwgt',axis=1,inplace=True)
+    dff=df.copy()
+    dff.drop('fnlwgt',axis=1,inplace=True)
     app.logger.info('Making a prediction')
-    prediction = model.predict(df)
+    prediction = model.predict(dff)
   
     t1=time.time()
     output = prediction[0]
