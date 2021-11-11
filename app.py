@@ -83,7 +83,7 @@ def predict():
     
     app.logger.info('Preparing a dataframe for predictions')
     
-    df = df.reindex(columns=['age', 'education', 'education-num', 'occupation', 'capital-gain',
+    df = df.reindex(columns=['age','fnlwgt','education', 'education-num', 'occupation', 'capital-gain',
        'capital-loss', 'hours-per-week', 'country', 'relationship_Husband',
        'relationship_Not-in-family', 'relationship_Other-relative',
        'relationship_Own-child', 'relationship_Unmarried', 'relationship_Wife',
@@ -94,7 +94,7 @@ def predict():
        'workclass_Self-emp-not-inc', 'workclass_State-gov',
        'workclass_Without-pay'])
     
-    
+    df.drop('fnlwgt',axis=1,inplace=True)
     app.logger.info('Making a prediction')
     prediction = model.predict(df)
   
