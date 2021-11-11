@@ -93,7 +93,8 @@ def predict():
        'workclass_Local-gov', 'workclass_Never-worked', 'workclass_Private',
        'workclass_Self-emp-inc', 'workclass_Self-emp-not-inc',
        'workclass_State-gov', 'workclass_Without-pay'])
-
+    
+    df=df.drop('fnlwgt',axis=1,inplace=True)
     app.logger.info('Making a prediction')
     prediction = model.predict(df)
   
