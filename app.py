@@ -83,16 +83,15 @@ def predict():
     
     app.logger.info('Preparing a dataframe for predictions')
     
-    df = df.reindex(columns=['age','fnlwgt','education', 'education-num', 'occupation', 'capital-gain',
-       'capital-loss', 'hours-per-week', 'country', 'relationship_Husband',
+    df = df.reindex(columns=['age','fnlwgt', 'education', 'education-num', 'occupation', 'capital-gain',
+       'capital-loss', 'hours-per-week', 'country', 'workclass_Federal-gov',
+       'workclass_Local-gov', 'workclass_Never-worked', 'workclass_Private',
+       'workclass_Self-emp-inc', 'workclass_Self-emp-not-inc',
+       'workclass_State-gov', 'workclass_Without-pay', 'relationship_Husband',
        'relationship_Not-in-family', 'relationship_Other-relative',
        'relationship_Own-child', 'relationship_Unmarried', 'relationship_Wife',
-       'race_Amer-Indian-Eskimo', 'race_Asian-Pac-Islander', 'race_Black',
-       'race_Other', 'race_White', 'sex_Female', 'sex_Male',
-       'workclass_Federal-gov', 'workclass_Local-gov',
-       'workclass_Never-worked', 'workclass_Private', 'workclass_Self-emp-inc',
-       'workclass_Self-emp-not-inc', 'workclass_State-gov',
-       'workclass_Without-pay'])
+       'sex_Female', 'sex_Male', 'race_Amer-Indian-Eskimo',
+       'race_Asian-Pac-Islander', 'race_Black', 'race_Other', 'race_White'])
     
     dff=df.copy()
     dff.drop('fnlwgt',axis=1,inplace=True)
