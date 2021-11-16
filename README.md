@@ -4,7 +4,6 @@
 https://ml-salary-classifier.herokuapp.com <br>
 please give 10 seconds to load.
 
-
 ## Product Perspective
 The ML salary classifier is a machine learning-based object classifier model which will help us to predict the classification of the salary of the subject based on the values of different parameters.
 
@@ -71,6 +70,7 @@ Hours_per_week -> Average number of hour working per week<br>
 Native_country -> Country of origin<br>
 Salary -> Income level (To be predicted)<br>
 
+## Predictions page:
 
 
 
