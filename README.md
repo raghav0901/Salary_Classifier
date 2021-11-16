@@ -71,7 +71,7 @@ Native_country -> Country of origin<br>
 Salary -> Income level (To be predicted)<br>
 
 ## Predictions page:
-
+![Result logo](results_page.png)
 
 
 
