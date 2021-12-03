@@ -78,7 +78,7 @@ Salary -> Income level (To be predicted)<br>
 
 
 ## API  front page:
-![Front logo](API page .png)
+![Front logo](page.png)
 
 
 
