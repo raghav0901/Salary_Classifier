@@ -10,6 +10,9 @@ The ML salary classifier is a machine learning-based object classifier model whi
 ## PROPOSED SOLUTION
 The solution proposed here is an XGBOOST model which can classify the salary by using the feature set described above. The model has also been hyper-parameter tuned using RandomCVSearch to provide the best results.
 
+
+## MLOps platofrm used:
+MlFlow
 ## Data Requirements
 The user only needs to enter the data in the form of number for some fields and select options from drop down menu for the rest of the fields. The request form will then record the responses of the user and convert it to a NumPy array for the model to work on it.
 
