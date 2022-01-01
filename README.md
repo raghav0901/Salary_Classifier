@@ -1,5 +1,8 @@
 # Salary Classifier
 
+## Link to the Jupyter Notebook:
+https://nbviewer.org/github/raghav0901/Salary_Classifier/blob/main/SalaryClassifier.ipynb
+
 ## Link to the deployed API:
 https://ml-salary-classifier.herokuapp.com <br>
 please give 10 seconds to load.
